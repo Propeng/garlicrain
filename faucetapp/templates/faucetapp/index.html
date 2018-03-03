@@ -1,0 +1,32 @@
+{% extends "faucetapp/base.html" %}
+
+{% block content %}
+
+<p class="lead">Donations to the faucet: <b>{{ address }}</b><br />Faucet balance: <b><span id="balance">{{ balance }}</span> {{faucet_settings.coin_symbol}}</b><br />Current payout: <b><span id="payout">{{ payout }}</span> {{faucet_settings.coin_symbol}}</b></p>
+
+<form class="form-horizontal" method="POST">
+  <div class="form-row">
+    <div class="col-10">
+      <input type="text" class="form-control" id="payout_address" name="payout_address" placeholder="Payout address" />
+    </div>
+    <div class="col-2">
+      <button type="submit" class="btn btn-primary mb-2 btn-block">Send {{faucet_settings.coin_symbol}}!</button>
+    </div>
+  </div>
+  {% if faucet_settings.use_recaptcha %}
+    <div class="col-md-12 text-center">
+      <div class="g-recaptcha" data-sitekey="{{faucet_settings.recaptcha_sitekey}}"></div>
+    </div>
+  {% endif %}
+  {% csrf_token %}
+</form>
+
+{% if success %}
+  <p class="lead msg-success">{{ message|safe }}</p>
+{% endif %}
+
+{% if error %}
+  <p class="lead msg-error">{{ message|safe }}</p>
+{% endif %}
+
+{% endblock %}

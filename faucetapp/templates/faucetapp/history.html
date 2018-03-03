@@ -1,0 +1,29 @@
+{% extends "faucetapp/base.html" %}
+
+{% block content %}
+
+<div class="history_body">
+  <p class="lead">Most recent {{count}} transactions:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Transaction ID</th>
+        <th scope="col">Address</th>
+        <th scope="col">Payout</th>
+        <th scope="col">Time (UTC)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in records %}
+      <tr>
+        <td><a href="https://garli.co.in/tx/{{record.tx_id}}">{{record.tx_id}}</a></td>
+        <td><a href="https://garli.co.in/address/{{record.address}}">{{record.address}}</a></td>
+        <td>{{record.payout}}</td>
+        <td>{{record.timestamp}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

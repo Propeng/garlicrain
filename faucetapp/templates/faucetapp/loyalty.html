@@ -1,0 +1,49 @@
+{% extends "faucetapp/base.html" %}
+
+{% block content %}
+
+<p class="lead">Use this form to check your current loyalty perks level and multiplier.</p>
+
+<form class="form-horizontal" method="POST">
+  <div class="form-row">
+    <div class="col-10">
+      <input type="text" class="form-control" id="payout_address" name="payout_address" placeholder="Payout address" />
+    </div>
+    <div class="col-2">
+      <button type="submit" class="btn btn-primary mb-2 btn-block">Check</button>
+    </div>
+  </div>
+  {% csrf_token %}
+</form>
+
+{% if success %}
+  <p class="lead">{{ message|safe }}</p>
+{% endif %}
+
+{% if error %}
+  <p class="lead msg-error">{{ message|safe }}</p>
+{% endif %}
+
+<div class="leaderboard-tbl mt-3">
+  <p class="lead">Top {{count}} addresses:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Rank</th>
+        <th scope="col">Address</th>
+        <th scope="col">Level</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in leaderboard %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{% if record.level == leaderboard.0.level %}<i class="em em-crown"></i> {% endif %}<a href="https://garli.co.in/address/{{record.address}}">{{record.address}}</a></td>
+        <td>{{record.level}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
