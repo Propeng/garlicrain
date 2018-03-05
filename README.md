@@ -2,6 +2,7 @@
 A cryptocoin faucet based on Django.
 ## Install instructions
 1. Make sure you have Python 3 and Django installed. (To check: `python --version` and `django-admin version`)
+1. Install the JSON RPC library: `pip install jsonrpclib-pelix` (sudo may be required)
 1. Download the repository on your server.
 1. Edit faucet/settings.py: Change your SECRET_KEY to a random string of 50 characters. You should also change ALLOWED_HOSTS to only allow requests from your domain.
 1. Edit faucet/faucet_settings.py: This is where most of the faucet configuration goes. You need to set rpc_url to point to your Bitcoin/Altcoin daemon, and optionally change the rest of the variables to customize the faucet.
